@@ -89,12 +89,12 @@ export async function updateUsuario (req, res) {
         { new: true }
       )
       return res.status(200).send(userUpdated)
-    }else  if (password !== '') {
+    }else  if (imagen || imagen !== '' && password !== '') {
       const passwordP = await Usuario.encryptPassword(password) 
       console.log(passwordP)
       const userUpdated = await Usuarios.findByIdAndUpdate(
         req.params.id,
-        { password: passwordP, username } ,
+        { imagen: img.secure_url, username, password: passwordP, username } ,
         { new: true }
       )
       return res.status(200).send(userUpdated) 
