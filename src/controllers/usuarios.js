@@ -83,12 +83,12 @@ export async function updateUsuario (req, res) {
     if (imagen || imagen !== '') {
       const img = await uploadImage(imagen)
 
-      const usuarionombre = newUser.username 
-      const usuarioimagen = newUser.imagen
-      const usuariopass = newUser.password
+      // const usuarionombre = newUser.username 
+      // const usuarioimagen = newUser.imagen
+      // const usuariopass = newUser.password
       const userUpdated = await Usuarios.findByIdAndUpdate(
         req.params.id,
-        { usuarionombre, usuarioimagen, usuariopass },
+        { imagen } ,
         { new: true }
       )
 
@@ -100,6 +100,15 @@ export async function updateUsuario (req, res) {
       { username },
       { new: true }
     )
+
+    if (password != '') {
+      const usuariopass = newUser.password
+      const userUpdated = await Usuarios.findByIdAndUpdate(
+        req.params.id,
+        { password : newUser.password },
+        { new: true }
+      )
+    }
 
     return res.status(200).send(userUpdated)
   } catch (error) {
