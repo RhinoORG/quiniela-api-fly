@@ -82,9 +82,13 @@ export async function updateUsuario (req, res) {
 
     if (imagen || imagen !== '') {
       const img = await uploadImage(imagen)
+
+      const usuarionombre = newUser.username 
+      const usuarioimagen = newUser.imagen
+      const usuariopass = newUser.password
       const userUpdated = await Usuarios.findByIdAndUpdate(
         req.params.id,
-        { newUser},
+        { usuarionombre, usuarioimagen, usuariopass },
         { new: true }
       )
 
