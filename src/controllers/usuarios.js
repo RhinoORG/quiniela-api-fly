@@ -78,53 +78,36 @@ export async function updateUsuario (req, res) {
   try {
     
     const { username, imagen, password } = req.body
- 
     const hash = await bcrypt.hash(password, 10)
     password = hash
 
-    if (password !== '') {
-      
-      const userUpdated = await Usuarios.findByIdAndUpdate(
-        req.params.id,
-        { password },
-        { new: true }
-      )
-
-      return res.status(200).send(userUpdated)
-    }
-      
-   
     if (imagen || imagen !== '') {
       const img = await uploadImage(imagen)
 
       const userUpdated = await Usuarios.findByIdAndUpdate(
         req.params.id,
-        { imagen } ,
+        { img } ,
+        { new: true }
+      )
+    }
+    if (password !== '' && password === hash) {
+      const userUpdated = await Usuarios.findByIdAndUpdate(
+        req.params.id,
+        { password : password },
         { new: true }
       )
       
     }
-    
-
-   
     if (username !== '') {
       const userUpdated = await Usuarios.findByIdAndUpdate(
         req.params.id,
-        { username },
+        { username : username },
         { new: true }
       )
       
     }
+    return res.status(200).send(userUpdated)
 
-    
-  
-   
-   
-
-
-   
-
-   
   } catch (error) {
     console.error(error)
     return res.status(500).send(error)
