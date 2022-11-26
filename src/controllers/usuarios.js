@@ -89,6 +89,9 @@ export async function updateUsuario (req, res) {
         { password },
         { new: true }
       )
+
+      return res.status(200).send(userUpdated)
+    }
       
    
     if (imagen || imagen !== '') {
@@ -113,15 +116,15 @@ export async function updateUsuario (req, res) {
       
     }
 
-    return res.status(200).send(userUpdated)
-  }
+    
+  
    
    
 
 
    
 
-    return res.status(200).send(userUpdated)
+   
   } catch (error) {
     console.error(error)
     return res.status(500).send(error)
