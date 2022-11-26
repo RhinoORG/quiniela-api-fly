@@ -80,7 +80,17 @@ export async function updateUsuario (req, res) {
     const { username, imagen, password } = req.body
     console.log(req)
 
-    if (imagen || imagen !== '') {
+    if (password !== '') {
+      const passwordP = await Usuario.encryptPassword(password) 
+      console.log(passwordP)
+      const userUpdated = await Usuarios.findByIdAndUpdate(
+        req.params.id,
+        { password: passwordP, username } ,
+        { new: true }
+      )
+      return res.status(200).send(userUpdated) 
+    }
+    else if (imagen || imagen !== '') {
       const img = await uploadImage(imagen)
 
       const userUpdated = await Usuarios.findByIdAndUpdate(
@@ -89,16 +99,7 @@ export async function updateUsuario (req, res) {
         { new: true }
       )
       return res.status(200).send(userUpdated)
-    }else  if (imagen || imagen !== '' && password !== '') {
-      const passwordP = await Usuario.encryptPassword(password) 
-      console.log(passwordP)
-      const userUpdated = await Usuarios.findByIdAndUpdate(
-        req.params.id,
-        { imagen: img.secure_url, username, password: passwordP, username } ,
-        { new: true }
-      )
-      return res.status(200).send(userUpdated) 
-    }
+    } 
     const userUpdated = await Usuarios.findByIdAndUpdate(
       req.params.id,
       { username },
