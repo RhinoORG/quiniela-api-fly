@@ -101,11 +101,11 @@ export async function updateUsuario (req, res) {
       { new: true }
     )
 
-    if (password != '') {
+    if (password !== '') {
       const usuariopass = newUser.password
       const userUpdated = await Usuarios.findByIdAndUpdate(
         req.params.id,
-        { password : newUser.password },
+        { password : usuariopass },
         { new: true }
       )
     }
