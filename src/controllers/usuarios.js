@@ -76,7 +76,7 @@ export async function getUsuario (req, res) {
 
 export async function updateUsuario (req, res) {
   try {
-    const { username, imagen } = req.body
+    const { username, imagen, password } = req.body
 
     if (imagen || imagen !== '') {
       const img = await uploadImage(imagen)
