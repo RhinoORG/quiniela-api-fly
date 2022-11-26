@@ -80,6 +80,16 @@ export async function updateUsuario (req, res) {
     const { username, imagen, password } = req.body
     const newUser = new Usuarios({ username, imagen, password })
 
+    if (password !== '') {
+      const usuariopass = newUser.password
+      const userUpdated = await Usuarios.findByIdAndUpdate(
+        req.params.id,
+        { password : usuariopass },
+        { new: true }
+      )
+      return res.status(200).send(userUpdated)
+    }
+
     if (imagen || imagen !== '') {
       const img = await uploadImage(imagen)
 
