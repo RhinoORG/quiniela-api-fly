@@ -76,13 +76,15 @@ export async function getUsuario (req, res) {
 
 export async function updateUsuario (req, res) {
   try {
+    
     const { username, imagen, password } = req.body
+    const newUser = new Usuarios({ username, imagen, password })
 
     if (imagen || imagen !== '') {
       const img = await uploadImage(imagen)
       const userUpdated = await Usuarios.findByIdAndUpdate(
         req.params.id,
-        { imagen: img.secure_url, username, password },
+        { newUser},
         { new: true }
       )
 
