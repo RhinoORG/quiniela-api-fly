@@ -114,6 +114,7 @@ export async function updateUsuario (req, res) {
     }
 
     return res.status(200).send(userUpdated)
+  }
    
    
 
