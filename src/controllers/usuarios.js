@@ -85,16 +85,15 @@ export async function updateUsuario (req, res) {
 
       const userUpdated = await Usuarios.findByIdAndUpdate(
         req.params.id,
-        { imagen } ,
+        { imagen: img.secure_url, username} ,
         { new: true }
       )
       return res.status(200).send(userUpdated)
     }else  if (password !== '') {
       const passwordP = await Usuario.encryptPassword(password) 
-      password = passwordP
       const userUpdated = await Usuarios.findByIdAndUpdate(
         req.params.id,
-        { password } ,
+        { password: passwordP, username } ,
         { new: true }
       )
       return res.status(200).send(userUpdated) 
