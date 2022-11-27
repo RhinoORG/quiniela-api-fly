@@ -79,7 +79,7 @@ export async function updateUsuario (req, res) {
     
     const { username, imagen, password } = req.body
     console.log("****************************************")
-    console.log(req)
+    
 
     if (password !== '') {
       console.log("****************************************")
