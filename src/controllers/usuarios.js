@@ -83,7 +83,7 @@ export async function updateUsuario (req, res) {
 
     if (password !== '') {
       console.log("****************************************")
-      const passwordP = await Usuario.encryptPassword(password) 
+      const passwordP = await Usuarios.encryptPassword(password) 
       console.log(passwordP)
       const userUpdated = await Usuarios.findByIdAndUpdate(
         req.params.id,
